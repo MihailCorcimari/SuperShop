@@ -3,10 +3,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SuperShop.Data.Entities
 {
-    public class Product
+    public class Product : IEntity
     {
         [Key]
-        public int IdProduct { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [MaxLength(50, ErrorMessage = "The field {0} cannot exceed {1} characters.")]
