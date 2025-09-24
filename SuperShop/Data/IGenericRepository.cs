@@ -1,4 +1,6 @@
-﻿namespace SuperShop.Data
+﻿using SuperShop.Data.Entities;
+
+namespace SuperShop.Data
 {
     public interface IGenericRepository<T> where T : class
     {

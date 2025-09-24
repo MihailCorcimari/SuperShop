@@ -1,6 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using SuperShop.Data;
+using Microsoft.AspNetCore.Identity;
+using SuperShop.Models; // Replace with the actual namespace of the User class
+using SuperShop.Data.Entities;
+using SuperShop.Helpers;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +18,19 @@ builder.Services.AddDbContext<DataContext>(options =>
 
 builder.Services.AddTransient<SeedDb>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IUserHelper, UserHelper>();
+
+builder.Services.AddIdentity<User, IdentityRole>(cfg =>
+{
+    cfg.User.RequireUniqueEmail = true;
+    cfg.Password.RequireDigit = false;
+    cfg.Password.RequiredUniqueChars = 0;
+    cfg.Password.RequireLowercase = false;
+    cfg.Password.RequireNonAlphanumeric = false;
+    cfg.Password.RequireUppercase = false;
+    cfg.Password.RequiredLength = 6;
+})
+    .AddEntityFrameworkStores<DataContext>();
 
 
 var app = builder.Build();
